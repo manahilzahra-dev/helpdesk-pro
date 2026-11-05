@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HelpDesk Pro 🎫
+**Smart Complaint & Support Management System**
 
-## Getting Started
+A full-stack, role-based HelpDesk application built to streamline customer support and ticket management.
 
-First, run the development server:
+## 🚀 Live Demo
+[https://helpdeskproj.netlify.app/login](https://helpdeskproj.netlify.app/login)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
+- **Authentication:** Secure Login & Registration with JWT & bcrypt.
+- **Role-Based Access Control:** Separate views for Admin and Users.
+- **Ticket Management:** Create, View, Update Status, and Delete tickets.
+- **Analytics Dashboard:** Interactive Pie Charts and Stats Cards.
+- **Customer Feedback:** Users can rate resolved tickets (5-star system).
+- **Dark Mode:** Fully responsive premium UI with Light/Dark theme toggle.
+- **Search & Filter:** Filter by Status, Priority, and sort High priority first.
+- **Settings & Help Pages:** User profile management and FAQs.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
+- **Frontend:** Next.js 16 (App Router), React, TypeScript, Tailwind CSS, Recharts, Lucide Icons.
+- **Backend:** Next.js API Routes, Node.js.
+- **Database:** MongoDB Atlas, Mongoose.
+- **Auth:** JSON Web Tokens (JWT), Bcryptjs.
+- **Deployment:** Netlify
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📸 Screenshots
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔐 Authentication
+![Login](login.png)
+![Registration](registration.png)
 
-## Learn More
+### 📊 Dashboard (Light & Dark Mode)
+![Dashboard Light](dashboard1.png)
+![Dashboard Dark](dashboard2.png)
 
-To learn more about Next.js, take a look at the following resources:
+### 🎫 Ticket Management
+![All Tickets](allticket.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 👁️ Ticket View & Rating Modal
+![View Ticket](viewticket.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 👥 Customers Management (Admin Only)
+![Customers](Customer.png)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚙️ Installation (Local Setup)
+1. Clone the repo: `git clone https://github.com/manahilzahra-dev/helpdesk-pro.git`
+2. Install dependencies: `npm install`
+3. Create `.env.local` and add:
+   ```env
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_secret_key
