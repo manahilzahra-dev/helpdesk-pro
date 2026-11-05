@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,15 +14,75 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   ✅ DARK MODE STYLES (Fixes Header & Sidebar)
+   ========================================= */
+
+/* 1. Body Background */
+.dark body {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* 2. Header aur Sidebar ka background dark karo */
+.dark header,
+.dark aside {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* 3. Saare Cards, Tables aur Modals */
+.dark .bg-white {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* 4. Table ke headings, Hover effects aur Inputs ke backgrounds */
+.dark .bg-slate-50, 
+.dark .bg-slate-100,
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover {
+  background-color: #0f172a !important;
+}
+
+/* 5. Text colors ko white/grey karo */
+.dark .text-slate-800,
+.dark .text-slate-900,
+.dark .text-white {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-500,
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+/* 6. Inputs, select, aur search bar */
+.dark input, 
+.dark select {
+  background-color: #0f172a !important;
+  color: white !important;
+  border-color: #334155 !important;
+}
+
+/* 7. Dropdown menus (Notifications/Profile) */
+.dark .shadow-xl,
+.dark .shadow-lg,
+.dark .shadow-md {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* 8. Gradient Welcome Panel ko dark mode mein theek karo */
+.dark .from-slate-50 {
+  --tw-gradient-from: #1e293b !important;
+}
+.dark .to-white {
+  --tw-gradient-to: #0f172a !important;
 }
