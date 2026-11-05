@@ -43,6 +43,7 @@ export default function LoginPage() {
 
       localStorage.setItem("userName", data.user.name);
       localStorage.setItem("userRole", data.user.role);
+       localStorage.setItem("userEmail", data.user.email);
 
       router.push("/");
       router.refresh();

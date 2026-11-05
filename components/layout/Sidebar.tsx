@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react"; // ✅ useEffect hata kar useSyncExternalStore import kiya
 
 interface SidebarProps {
   isOpen: boolean;
@@ -20,6 +20,13 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   
+  // ✅ useSyncExternalStore se check karein ke browser mein hain ya nahi
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,  // Client side (browser) par true
+    () => false  // Server side par false
+  );
+
   const [userRole] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("userRole") || "user";
@@ -27,15 +34,25 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     return "user";
   });
 
+  // (Baqi code bilkul same rahega, bas useEffect wali line hata dein)
+  if (!isMounted) {
+    return null; 
+  }
+  
   const menuItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard, roles: ["admin", "user"] },
     { name: "Tickets", href: "/tickets", icon: Ticket, roles: ["admin", "user"] },
     { name: "Customers", href: "/customers", icon: Users, roles: ["admin"] }, 
   ];
 
+  // Agar browser mein load nahi hua, toh kuch mat dikhao
+  if (!isMounted) {
+    return null; 
+  }
+
   return (
     <>
-      {/* ✅ Mobile Overlay (background dark) */}
+      {/* Mobile Overlay */}
       {isOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/40 md:hidden" 
@@ -43,9 +60,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         />
       )}
 
-      {/* ✅ Sidebar (Mobile pe fixed, Desktop pe sticky) */}
+      {/* Sidebar Container */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col border-r border-slate-200 bg-white p-5 transition-transform duration-300
+        fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col border-r border-slate-200 bg-white p-5 transition-transform duration-300 overflow-y-auto
         md:sticky md:top-0 md:translate-x-0
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
@@ -85,7 +102,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                onClick={onClose} // ✅ Mobile pe click karte hi band ho jaye
+                onClick={onClose}
                 className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all ${
                   isActive
                     ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
@@ -100,16 +117,18 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Bottom Menu */}
-        <div className="mt-auto space-y-2">
+        <div className="mt-auto space-y-2 pt-6">
           <Link
-            href="#"
+            href="/help"
+            onClick={onClose}
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 hover:bg-slate-100 transition-colors"
           >
             <HelpCircle size={20} />
             Help & Support
           </Link>
           <Link
-            href="#"
+            href="/settings"
+            onClick={onClose}
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 hover:bg-slate-100 transition-colors"
           >
             <Settings size={20} />
